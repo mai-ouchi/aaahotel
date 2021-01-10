@@ -68,10 +68,10 @@
     <label for="adult">大人：
       <?php
       //大人
-      if(empty($_POST['adult'])){
-        echo '必ずご入力ください。';
+      if($_POST['adlut'] >= 1){
+        echo $_POST['adlut'].'人';
       }else{
-        echo $_POST['adult'].'人';
+        echo '必ずご入力ください。';
       }
       ?>
     </label>
@@ -80,11 +80,16 @@
     <label for="adult">子供：
       <?php
       //子供
-      if(empty($_POST['child'])){
-        echo '必ずご入力ください。';
-      }else{
+      if($_POST['child'] == 0 || $_POST['child'] >= 1){
         echo $_POST['child'].'人';
+      }else{
+        echo '必ずご入力ください。';
       }
+      /*
+      判定に数字の０と１を使うのであれば、emptyを使うのは要注意！
+      この場合は、['child']の中を判定しているのであって、変数の判定じゃない。
+      本来emptyは変数の有無だけど判定するもの。今回の場合だったらis arryを使った判定が正しい構文になる。
+      */
       ?>
     </label>
   </div>
@@ -108,10 +113,21 @@
   </div>
   <div>
     <!--予約確定ボタン-->
-    <?php if($_POST['name'] && $_POST['email']){
+    <?php if($_POST['name'] && $_POST['email'] && $_POST['tel'] && 
+    $_POST['checkin'] && $_POST['checkout'] && $_POST['adult'] && 
+    $_POST['child'] && $_POST['roomtype']){
     echo "<form action='sent.php' method='post'>
         <input type='hidden'>
         <input type='submit' value='予約する'>
+        <input type='hidden' name='name' value=".$_POST['name'].">
+        <input type='hidden' name='email' value=".$_POST['email'].">
+        <input type='hidden' name='tel' value=".$_POST['tel'].">
+        <input type='hidden' name='checkin' value=".$_POST['checkin'].">
+        <input type='hidden' name='checkout' value=".$_POST['checkout'].">
+        <input type='hidden' name='adult' value=".$_POST['adult'].">
+        <input type='hidden' name='child' value=".$_POST['child'].">
+        <input type='hidden' name='roomtype' value=".$_POST['roomtype'].">
+        <input type='hidden' name='moreinfo' value=".$_POST['moreinfo'].">
         </form>";
     }else{
       echo "未入力項目があります";

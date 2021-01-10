@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
-  <title></title>
+  <title>ご予約フォーム</title>
 </head>
 <body>
   <form action="check.php" method="post">
@@ -36,15 +36,14 @@
     <div>
       <label for="checkout">チェックアウト</label>
       <input type="date" name="checkout"
-      value="<?php if(!empty($_POST['checkout'])){
+      value="<?php if(empty($_POST['checkout'])){
         echo $_POST['checkout'];} ?>">
     </div>
     <div>
       <p>宿泊人数</p>
       <label for="adult">大人</label>
       <select name="adult">
-        <option value="<?php if(!empty($_POST['adult'])){
-          echo $_POST['adult'];} ?>">選択してください</option>
+        <option value="adlut">選択してください</option>
         <?php
         for($i = 1; $i <= 4; $i++ ){
           if($i==$_POST['adult']){
@@ -57,16 +56,20 @@
       </select>
       <label for="child">子供</label>
       <select name="child">
-        <option value="<?php if(!empty($_POST['child'])){
-          echo $_POST['child'];} ?>">選択してください</option>
+        <option value="選択してください">選択してください</option>
           <?php
-          for($i = 1; $i <= 4; $i++ ){
+          for($i = 0; $i <= 4; $i++){
+            if(isset($_POST['child'])/*入っているかどうか判別する*/){
             if($i==$_POST['child']){
               echo "<option value='{$i}' selected>{$i}人</option>";
             }else {
               echo "<option value='{$i}'>{$i}人</option>";
             }
+          }else{
+            echo "<option value='{$i}'>{$i}人</option>";
           }
+          }
+          /*POSTの中が空だと、プログラムは空を０と判定するから、デフォルトで０人のほうが選択される*/ 
           ?>
       </select>
       <div>
@@ -80,9 +83,10 @@
         </select>
       </div>
       <div>
-        <label for="moreinfo">備考</label>
-        <input type="textarea" name="moreinfo" value="<?php echo $_POST['moreinfo']; ?>">
-      </div>
+        <label for="moreinfo"><p>備考　その他ご希望ありましたらご入力ください。</p>
+        <textarea name="moreinfo" rows="4" cols="40"
+        value="<?php echo $_POST['moreinfo']; ?>"></textarea>
+      </label></div>
       <input type="submit" value="予約内容確認">
     </form>
   </body>
