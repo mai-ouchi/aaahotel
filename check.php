@@ -68,10 +68,10 @@
     <label for="adult">大人：
       <?php
       //大人
-      if($_POST['adlut'] >= 1){
-        echo $_POST['adlut'].'人';
-      }else{
+      if(empty($_POST['adult'])){
         echo '必ずご入力ください。';
+      }else{
+        echo $_POST['adult'].'人';
       }
       ?>
     </label>
@@ -80,10 +80,10 @@
     <label for="adult">子供：
       <?php
       //子供
-      if($_POST['child'] == 0 || $_POST['child'] >= 1){
-        echo $_POST['child'].'人';
-      }else{
+      if(empty($_POST['child'])){
         echo '必ずご入力ください。';
+      }else{
+        echo $_POST['child'];
       }
       /*
       判定に数字の０と１を使うのであれば、emptyを使うのは要注意！

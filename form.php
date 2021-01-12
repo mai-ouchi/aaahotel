@@ -43,7 +43,8 @@
       <p>宿泊人数</p>
       <label for="adult">大人</label>
       <select name="adult">
-        <option value="adlut">選択してください</option>
+        <option value="<?php if(!empty($_POST['adult'])){
+          echo $_POST['adult'];} ?>">選択してください</option>
         <?php
         for($i = 1; $i <= 4; $i++ ){
           if($i==$_POST['adult']){
@@ -53,11 +54,18 @@
           }
         }
         ?>
+        ?>
       </select>
       <label for="child">子供</label>
       <select name="child">
-        <option value="選択してください">選択してください</option>
-          <?php
+        <option value="<?php if(!empty($_POST['child'])){
+            echo $_POST['child'];} ?>">選択してください</option>
+        <option value="0人">0人</option>
+        <option value="1人">1人</option>
+        <option value="2人">2人</option>
+        <option value="3人">3人</option>
+        <option value="4人">4人</option>
+          <!--
           for($i = 0; $i <= 4; $i++){
             if(isset($_POST['child'])/*入っているかどうか判別する*/){
             if($i==$_POST['child']){
@@ -70,7 +78,7 @@
           }
           }
           /*POSTの中が空だと、プログラムは空を０と判定するから、デフォルトで０人のほうが選択される*/ 
-          ?>
+        -->
       </select>
       <div>
         <p>宿泊プラン</p>
