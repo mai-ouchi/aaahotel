@@ -60,9 +60,9 @@
 ";
     }
     $headers = "From: booking@aaahotel.com";
-    $headers .= "\r\n";
-    $headers .= "Content-type: text/html; charset=UTF-8";
-  if (mb_send_mail($to, $title, $content)) {
+    //$headers .= "\r\n";
+    //$headers .= "Content-type: text/html; charset=UTF-8";
+  if (mb_send_mail($to, $title, $content, $headers)) {
     echo "ご予約ありがとうございました。\n予約内容をメールでお送りしました。";
   } else {
     echo "エラーのためご予約が確定していません。
@@ -76,8 +76,7 @@
 
 $admin_to = "mai.ouchi929@gmail.com";
 $admin_title = "予約が入りました";
-$admin_content = file_get_contents('admin_mail.php');
-/*"予約が入りました。以下の内容を確認してください。
+$admin_content = "予約が入りました。以下の内容を確認してください。
 ■ご予約内容
 宿泊者代表者様：".$_POST['name'].
 "\nメールアドレス：".$_POST['email'].
@@ -87,11 +86,11 @@ $admin_content = file_get_contents('admin_mail.php');
 "\n人数 大人:".$_POST['adult']." 子供：".$_POST['child'].
 "\n宿泊タイプ：".$_POST['roomtype'].
 "\n備考：".$_POST['moreinfo'].
-"\nよろしくお願いいたします。";*/
-$headers = "From: admin@aaahotel.com";
-$headers .= "\r\n";
+"\nよろしくお願いいたします。";
+$admin_headers = "From: admin@aaahotel.com";
+//$headers .= "\r\n";
 //$headers .= "Content-type: text/html; charset=UTF-8";
-mb_send_mail($admin_to, $admin_title, $admin_content, $headers);
+mb_send_mail($admin_to, $admin_title, $admin_content, $admin_headers);
 //もう1個mbsendmailを書いて送り先を管理者にする。管理者用に内容を分けることもできる。ユーザーの希望次第
 ?>
   </body>
